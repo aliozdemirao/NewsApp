@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.core.view.WindowCompat
 import com.aliozdemir.newsapp.presentation.onboarding.OnBoardingScreen
 
-//TODO: Use the accompanist library to change the colors of the status bar
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
