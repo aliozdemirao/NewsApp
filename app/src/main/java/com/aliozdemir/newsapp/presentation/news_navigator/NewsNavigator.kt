@@ -21,7 +21,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliozdemir.newsapp.R
 import com.aliozdemir.newsapp.domain.model.Article
+import com.aliozdemir.newsapp.presentation.bookmark.BookmarkScreen
+import com.aliozdemir.newsapp.presentation.bookmark.BookmarkViewModel
 import com.aliozdemir.newsapp.presentation.details.DetailsScreen
+import com.aliozdemir.newsapp.presentation.details.DetailsViewModel
 import com.aliozdemir.newsapp.presentation.home.HomeScreen
 import com.aliozdemir.newsapp.presentation.home.HomeViewModel
 import com.aliozdemir.newsapp.presentation.navgraph.Route
@@ -129,18 +132,31 @@ fun NewsNavigator() {
                 )
             }
             composable(route = Route.DetailsScreen.route) {
+                val viewModel: DetailsViewModel = hiltViewModel()
                 navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
                     ?.let { article ->
                         DetailsScreen(
                             article = article,
-                            event = {},
-                            navigateUp = { navController.navigateUp() }
+                            event = viewModel::onEvent,
+                            navigateUp = { navController.navigateUp() },
+                            sideEffect = viewModel.sideEffect
                         )
                     }
 
             }
             composable(route = Route.BookmarkScreen.route) {
-
+                val viewModel: BookmarkViewModel = hiltViewModel()
+                val state = viewModel.state.value
+                OnBackClickStateSaver(navController = navController)
+                BookmarkScreen(
+                    state = state,
+                    navigateToDetails = { article ->
+                        navigateToDetails(
+                            navController = navController,
+                            article = article
+                        )
+                    }
+                )
             }
         }
     }
