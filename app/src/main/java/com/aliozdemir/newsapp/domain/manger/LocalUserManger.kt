@@ -1,4 +1,4 @@
-package com.aliozdemir.newsapp.domain.manager
+package com.aliozdemir.newsapp.domain.manger
 
 import kotlinx.coroutines.flow.Flow
 

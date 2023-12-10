@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
         installSplashScreen().apply {
             setKeepOnScreenCondition(condition = { viewModel.splashCondition.value })
         }
@@ -42,7 +41,11 @@ class MainActivity : ComponentActivity() {
                     )
                 }
                 //Add fillMaxSize()
-                Box(modifier = Modifier.background(MaterialTheme.colorScheme.background).fillMaxSize()) {
+                Box(
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .fillMaxSize()
+                ) {
                     NavGraph(startDestination = viewModel.startDestination.value)
                 }
             }
